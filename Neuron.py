@@ -97,31 +97,31 @@ for batch in batches:
     # after finishing the batch
     # diff output * y/z  * z/w
     for i in range(len(outputLayer)): # back propagation for output layer
-        print(f"len of outputLayer: {len(outputLayer)}")
+        # print(f"len of outputLayer: {len(outputLayer)}")
         diffOfError = - (dataPoint[1] - outputLayerOutputs[i])
         diffOfSigmoid = outputLayer[i].differentiationOfSigmoid()
         for j in range(len(outputLayer[i].weights)):
-            print(f"len of outputLayer[i].weights: {len(outputLayer[i].weights)}")
+           # print(f"len of outputLayer[i].weights: {len(outputLayer[i].weights)}")
             diffOfZ = outputLayer[i].differentiationOfZ(f"w{j+1}")
             deltaW = diffOfError * diffOfSigmoid * diffOfZ
-           # print(f"Old w{j+1}: {outputLayer[i].weights[j]}")
+            print(f"Old w{j+1}: {outputLayer[i].weights[j]}")
             outputLayer[i].weights[j] -= learningRate * deltaW
-           # print(f"New w{j+1}: {outputLayer[i].weights[j]}")
+            print(f"New w{j+1}: {outputLayer[i].weights[j]}")
 
     for i in range(len(outputLayer)): # back propagation for hidden layer
-        print(f"len of outputLayer: {len(outputLayer)}")
+        # print(f"len of outputLayer: {len(outputLayer)}")
         diffOfError = - (dataPoint[1] - outputLayerOutputs[i])
         diffOfSigmoid = outputLayer[i].differentiationOfSigmoid()
         for j in range(len(outputLayer[i].weights)):
-            print(f"len of outputLayer[i].weights: {len(outputLayer[i].weights)}")
+           # print(f"len of outputLayer[i].weights: {len(outputLayer[i].weights)}")
             diffOfZ = outputLayer[i].differentiationOfZ(f"y{j+1}")
-            for k in range(len(hiddenLayer)):
-                print(f"len of hiddenLayer: {len(hiddenLayer)}")
-                diffOf2ndSigmoid = hiddenLayer[k].differentiationOfSigmoid()
-                for l in range(len(hiddenLayer[k].weights)):
-                    print(f"len of hiddenLayer[k].weights: {len(hiddenLayer[k].weights)}")
-                    diffOfInput = hiddenLayer[k].differentiationOfZ(f"x{l+1}")
-                    deltaW = diffOfError * diffOfSigmoid * diffOfZ  * diffOf2ndSigmoid * diffOfInput
-                   # print(f"Old w{l+1}: {hiddenLayer[k].weights[l]}")
-                    hiddenLayer[k].weights[l] -= learningRate * deltaW
-                   # print(f"New w{l+1}: {hiddenLayer[k].weights[l]}")
+            #for k in range(len(hiddenLayer[j])):
+            #  print(f"len of hiddenLayer: {len(hiddenLayer)}")
+            diffOf2ndSigmoid = hiddenLayer[j].differentiationOfSigmoid()
+            for l in range(len(hiddenLayer[j].weights)):
+            # print(f"len of hiddenLayer[k].weights: {len(hiddenLayer[k].weights)}")
+                diffOfInput = hiddenLayer[j].differentiationOfZ(f"x{l+1}")
+                deltaW = diffOfError * diffOfSigmoid * diffOfZ  * diffOf2ndSigmoid * diffOfInput
+                print(f"Old w{l+1}: {hiddenLayer[j].weights[l]}")
+                hiddenLayer[j].weights[l] -= learningRate * deltaW
+                print(f"New w{l+1}: {hiddenLayer[j].weights[l]}")
