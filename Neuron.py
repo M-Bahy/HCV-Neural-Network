@@ -1,6 +1,6 @@
 import math
 import random
-class Nuron:
+class Neuron:
     def __init__(self, number_of_inputs,inputs):
         self.number_of_inputs = number_of_inputs
         self.weights = []
@@ -8,6 +8,9 @@ class Nuron:
         self.bias = random.uniform(-5, 5) 
         for i in range(number_of_inputs):
             self.weights.append(random.uniform(-10, 10) )
+
+    def setInputs(self,inputs):
+        self.inputs = inputs
         
     def Z(self):
         z = 0
@@ -22,16 +25,10 @@ class Nuron:
     def differentiationOfSigmoid(self):
         return self.sigmoid() * (1 - self.sigmoid())
     
-    def differentiationOfZ(self,target): # w1674368   x468287  y4893804
-        index = target[1:]
-        if target.toLower().contains("w"):
+    def differentiationOfZ(self,target): # w1674368   x468287  y4893804   w3   x5   y8
+        index = int(target[1:]) -1
+        if "w" in target.lower():
             return self.inputs[index]
-        elif target.toLower().contains("y") or target.toLower().contains("x") :
+        elif "y" in target.lower() or "x" in target.lower():
+            # Your code here
             return self.weights[index]
-
-    # Z = w1*x1 + w2*x2 + w3*x3 + b
-
-
-
-
-    # Z = w1*y1 + w2*y2 + w3*y3 + b
